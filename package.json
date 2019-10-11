@@ -1,0 +1,15 @@
+{
+  "name": "make-source-code-doc",
+  "version": "0.0.1",
+  "description": "a tools for make \".doc\" file for source code.",
+  "main": "make-source-code-doc.js",
+  "dependencies": {
+    "glob": "^7.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Monkey-Jiao",
+  "license": "ISC"
+}
