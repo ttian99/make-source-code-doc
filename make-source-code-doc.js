@@ -5,7 +5,7 @@ var path = require('path');
 function readFile(url) {
     let str = '';
     try {
-        str = fs.readFileSync(url);
+        str = fs.readFileSync(url, { encoding: 'utf8' });
     } catch (error) {
         console.error('==> readFile error: ' + error.message);
         str = '';
@@ -14,20 +14,21 @@ function readFile(url) {
 }
 
 function main() {
-    var dir = './script/';
-    var filePath = path.join(dir, '**/*.ts');
+    var config = fs.readFileSync('config.json', { encoding: 'utf8' });
+    var cfg = JSON.parse(config);
+    var filePath = path.join(cfg.src, cfg.reg);
     console.log(filePath);
-    glob(filePath,function (err, arr) {
+    glob(filePath, function (err, arr) {
         if (err) return console.error(err);
-        console.log(JSON.stringify(arr));
+        console.log('len = ' + arr.length);
 
         let data = '';
         for (let i = 0, len = arr.length; i < len; i++) {
             const url = arr[i];
             data += readFile(url);
         }
-        // console.log(data);
-        fs.writeFileSync('ydm.doc', data);
+        var outFile = path.join(cfg.dest, "源代码.doc");
+        fs.writeFileSync(outFile, data, { encoding: 'utf8' });
         console.log('==> over');
     })
 }
